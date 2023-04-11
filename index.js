@@ -86,10 +86,7 @@ class ServiceBroker {
 
           if (msg.reply) {
             await msg.respond(
-              this._encode({
-                ok: true,
-                result,
-              })
+              this._encode(result)
             );
           }
           
@@ -97,7 +94,7 @@ class ServiceBroker {
       } catch (error) {
         await msg.respond(
           this._encode({
-            ok: true,
+            error: true,
             message: error.message,
           })
         );
