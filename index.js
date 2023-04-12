@@ -53,9 +53,9 @@ class ServiceBroker {
         ctx._isConnected();
         const m = await ctx.broker.request(topic, this._encode(payload));
         const response = this._decode(m.data);
-        if (!response.ok) {
-          throw new Error(response.message);
-        }
+        // if (!response.ok) {
+        //   throw new Error(response.message);
+        // }
         return response;
       } catch (error) {
         throw error;
