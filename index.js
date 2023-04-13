@@ -1,5 +1,6 @@
 const { connect, StringCodec } = require("nats");
 const { createValidateFunction } = require("./config/validation");
+const RequestError = require("./config/error")
 
 const sc = StringCodec();
 
@@ -53,9 +54,9 @@ class ServiceBroker {
         ctx._isConnected();
         const m = await ctx.broker.request(topic, this._encode(payload));
         const response = this._decode(m.data);
-        // if (!response.ok) {
-        //   throw new Error(response.message);
-        // }
+        if (response.error === true) {
+          throw new RequestError(response.message, response.code, response.data);
+        }
         return response;
       } catch (error) {
         throw error;
@@ -96,6 +97,7 @@ class ServiceBroker {
           this._encode({
             error: true,
             message: error.message,
+            data: error.data
           })
         );
       }
