@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Ecombest/nats-client-js#readme",
   "dependencies": {
+    "@types/node": "^18.15.11",
     "fastest-validator": "^1.16.0",
     "nats": "^2.13.1"
   }
